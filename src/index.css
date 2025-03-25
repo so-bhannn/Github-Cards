@@ -1,1 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap');
 @import "tailwindcss";
+
+@theme{
+    --font-monasans: 'Mona Sans', sans-serif;
+}
+
+@theme{
+    --font-geist: 'Geist', sans-serif;
+}
+
+@theme{
+    --font-geistmono: "Geist Mono", monospace;
+}
+
+@theme{
+    --font-funnelsans: 'Funnel Sans', sans-serif;
+}
