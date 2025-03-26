@@ -4,7 +4,7 @@ const Card = (userData) =>{
     return (
         <div className="relative flex flex-col justify-between w-96 h-48 md:w-3xl md:h-96 bg-amber-50 rounded-xl shadow-2xl box-border overflow-hidden">
             <div id="upper" className="flex pt-6 px-6">
-                <div id="title" className="flex min-h-32 box-border items-center">
+                <div id="title" className="flex min-h-32 min-w-xl box-border items-center">
                     <h1 className="text-5xl font-monasans">{`${userData.userData.login}/`} <strong>{userData.userData.name}</strong></h1>
                 </div>
                 <div id="avatar-container" className='shadow-2xl rounded-3xl min-w-36 h-36 overflow-hidden'>
@@ -43,7 +43,7 @@ const Card = (userData) =>{
                     <div id='details' className='flex items-center'>
                         <i className="fa-solid fa-code-branch text-3xl text-black/70"></i>
                         <span className='text-3xl font-monasans font-semibold p-2'>
-                            356
+                            {userData.userData.contributions}
                         </span>
                     </div>
                     <p className='text-xl text-black/70'>

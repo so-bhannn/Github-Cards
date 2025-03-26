@@ -9,6 +9,40 @@ function App() {
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
 
+  const fetchContributions = async(username)=>{
+    const query = `
+      query($username: String!) {
+        user(login: $username) {
+          contributionsCollection {
+            totalCommitContributions
+          }
+        }
+      }
+    `;
+
+    try{
+      const response = await fetch('https://api.github.com/graphql',{
+        method: 'POST',
+        headers: {
+          "Authorization": `Bearer ${import.meta.env.GITHUB_TOKEN}`,
+          "Content-Type": 'application/json'
+        },
+        body: JSON.stringify({
+          query,
+          variables: { username }
+        }) 
+      })
+    const data = await response.json()
+    console.log(data)
+    return data['data']['user']['contributionsCollection']['totalCommitContributions']
+    }
+    catch (error){
+      console.error("Error fetching contributions: ", error)
+      return 0
+    }
+  }
+
+
   const fetchGithubUser = async()=>{
     if(!username) return
     
@@ -16,14 +50,16 @@ function App() {
     setError(null)
 
     try{
-      const response = await fetch(`https://api.github.com/users/${username}`)
-      if(!response.ok){
+      const [userResponse,contributions] = await Promise.all([
+        fetch(`https://api.github.com/users/${username}`),
+        fetchContributions(username)
+      ])
+      if(!userResponse.ok){
         setError('User not found')
-        return
+        return 0
       }
-      const data = await response.json()
-      setUserdata(data)
-      console.log(data)
+      const data = await userResponse.json()
+      setUserdata({...data, contributions})
     }
     catch(error){
       setError(error)
