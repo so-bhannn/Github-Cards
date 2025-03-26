@@ -1,19 +1,19 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const Card = (username, repos, followers, contributions) =>{
+const Card = (userData) =>{
+    console.log(userData)
     return (
         <div className="relative flex flex-col justify-between w-96 h-48 md:w-3xl md:h-96 bg-amber-50 rounded-xl shadow-2xl box-border overflow-hidden">
             <div id="upper" className="flex pt-6 px-6">
                 <div id="title" className="flex min-h-32 box-border items-center">
-                    <h1 className="text-5xl font-monasans">so-bhannn/ <strong>Sobhan Ghosh</strong></h1>
+                    <h1 className="text-5xl font-monasans">{`${userData.userData.login}/`} <strong>{userData.userData.name}</strong></h1>
                 </div>
-                <div id="avatar-container" className='min-w-40'>
-                    <img src="https://avatars.githubusercontent.com/u/156843487?v=4" alt="Avatar" className="rounded-3xl w-36 h-36 "/>
+                <div id="avatar-container" className='shadow-2xl rounded-3xl min-w-36 h-36 overflow-hidden'>
+                    <img src={userData.userData.avatar_url} alt="Avatar" className="w-full h-full "/>
                 </div>
             </div>
             <div id="description" className="pl-6">
                 <p className="text-2xl font-monasans text-black/60">
-                    Building the invisible backbone of the web.
+                    {userData.userData.bio}
                 </p>
             </div>
             <div id="stats" className="flex justify-evenly mb-7">
@@ -21,7 +21,7 @@ const Card = (username, repos, followers, contributions) =>{
                     <div id='details' className='flex items-center'>
                         <i className="fa-solid fa-users text-3xl text-black/70"></i>
                         <span className='text-3xl font-monasans font-semibold p-2'>
-                            56
+                            {userData.userData.followers}
                         </span>
                     </div>
                     <p className='text-xl text-black/70'>
@@ -32,7 +32,7 @@ const Card = (username, repos, followers, contributions) =>{
                     <div id='details' className='flex items-center'>
                         <i className="fa-solid fa-cubes text-3xl text-black/70"></i>
                         <span className='text-3xl font-monasans font-semibold p-2'>
-                            18
+                            {userData.userData.public_repos}
                         </span>
                     </div>
                     <p className='text-xl text-black/70'>
