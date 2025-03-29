@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import { Card } from './components'
-import {fetchContributions} from './services/githubServices'
+import {fetchContributions,analyzeLanguages} from './services/githubServices'
 
 function App() {
 
