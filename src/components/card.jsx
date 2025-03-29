@@ -1,5 +1,9 @@
-
+import languageColors from '../assets/githubColors'
 const Card = (userData) =>{
+    const getLanguageColor=(language)=>{
+        return languageColors[language].color || "#ffffff"
+    }
+    
     return (
         <div className="relative flex flex-col justify-between w-96 h-48 md:w-3xl md:h-96 bg-amber-50 rounded-xl shadow-2xl box-border overflow-hidden">
             <div id="upper" className="flex pt-6 px-6">
@@ -50,12 +54,25 @@ const Card = (userData) =>{
                     </p>
                 </div>
             </div>
-            <div id='languages' className='absolute flex min-w-full bottom-0 box-border '>
-                <span className='w-1/4 h-4 bg-[#e34c26]'></span>
-                <span className='w-1/4 h-4 bg-[#0366d6]'></span>
-                <span className='w-1/4 h-4 bg-[#f1e05a]'></span>
-                <span className='w-1/4 h-4 bg-[#6f42c1]'></span>
-            </div>
+            {
+                userData.userData.percentages && 
+                <div id='languages' className='absolute flex min-w-full bottom-0 box-border '>
+                    {
+                        userData.userData.percentages.map(([language,percentage],index)=>{
+                            return(
+                                <span
+                                key={index}
+                                className='h-4'
+                                style={{
+                                    width:`${percentage}%`,
+                                    backgroundColor:getLanguageColor(language)
+                                }}
+                                ></span>
+                            )
+                        })
+                    }
+                </div>
+            }
         </div>
     )
 }

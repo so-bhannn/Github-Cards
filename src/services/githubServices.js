@@ -1,3 +1,4 @@
+const GITHUB_TOKEN=import.meta.env.VITE_GITHUB_TOKEN
 export const fetchContributions = async(username)=>{
     const query = `
       query($username: String!) {
@@ -13,7 +14,7 @@ export const fetchContributions = async(username)=>{
       const response = await fetch('https://api.github.com/graphql',{
         method: 'POST',
         headers: {
-          "Authorization": `Bearer ${process.env.GITHUB_TOKEN}`,
+          "Authorization": `Bearer ${GITHUB_TOKEN}`,
           "Content-Type": 'application/json'
         },
         body: JSON.stringify({
@@ -33,7 +34,7 @@ export const fetchContributions = async(username)=>{
 const getUserRepos = async(username)=>{
     try{
         const headers = GITHUB_TOKEN ? { 
-            'Authorization': `token ${process.env.GITHUB_TOKEN}`,
+            'Authorization': `token ${GITHUB_TOKEN}`,
             'Accept': 'application/vnd.github.v3+json'
           } : {};
         const response=await fetch(`https://api.github.com/users/${username}/repos`,{headers})
@@ -49,7 +50,7 @@ const getUserRepos = async(username)=>{
 const getRepoLanguages = async(username, repo)=>{
     try{
         const headers = GITHUB_TOKEN ? { 
-            'Authorization': `token ${process.env.GITHUB_TOKEN}`,
+            'Authorization': `token ${GITHUB_TOKEN}`,
             'Accept': 'application/vnd.github.v3+json'
           } : {};
         const response=await fetch(`https://api.github.com/repos/${username}/${repo}/languages`,{headers})
@@ -95,4 +96,10 @@ export const analyzeLanguages = async(username)=>{
     })
 
     return Object.entries(percentages).sort((a,b)=>b[1]-a[1])
+}
+
+
+
+export const getLanguageColor=(language)=>{
+  return 
 }
