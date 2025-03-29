@@ -29,3 +29,19 @@ export const fetchContributions = async(username)=>{
       return null
     }
   }
+
+const getUserRepos = async(username)=>{
+    try{
+        const headers = GITHUB_TOKEN ? { 
+            'Authorization': `token ${GITHUB_TOKEN}`,
+            'Accept': 'application/vnd.github.v3+json'
+          } : {};
+        const response=await fetch(`https://api.github.com/users/${username}/repos`,{headers})
+        const data = await response.json()
+        return data
+    }
+    catch (error){
+      console.error("Error fetching repos: ", error)
+      return null
+    }
+}
