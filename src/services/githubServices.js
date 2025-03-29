@@ -33,7 +33,7 @@ export const fetchContributions = async(username)=>{
 const getUserRepos = async(username)=>{
     try{
         const headers = GITHUB_TOKEN ? { 
-            'Authorization': `token ${GITHUB_TOKEN}`,
+            'Authorization': `token ${process.env.GITHUB_TOKEN}`,
             'Accept': 'application/vnd.github.v3+json'
           } : {};
         const response=await fetch(`https://api.github.com/users/${username}/repos`,{headers})
@@ -49,7 +49,7 @@ const getUserRepos = async(username)=>{
 const getRepoLanguages = async(username, repo)=>{
     try{
         const headers = GITHUB_TOKEN ? { 
-            'Authorization': `token ${GITHUB_TOKEN}`,
+            'Authorization': `token ${process.env.GITHUB_TOKEN}`,
             'Accept': 'application/vnd.github.v3+json'
           } : {};
         const response=await fetch(`https://api.github.com/repos/${username}/${repo}/languages`,{headers})
@@ -60,4 +60,39 @@ const getRepoLanguages = async(username, repo)=>{
         console.error(`Error fetching languages for the repo: ${repo}`)
         return null
     }
+}
+
+export const analyzeLanguages = async(username)=>{
+    const repos = await getUserRepos(username)
+
+    if(!repos.length){
+        throw new Error('User has no public repositories!')
+    }
+
+    const languagePromises = repos.map((repo)=>{
+        return getRepoLanguages(username,repo.name)
+    })
+
+    const results = await Promise.allSettled(languagePromises)
+
+    const languageDataArray = results.filter(result=> result.status==='fulfilled').map(result=>result.value)
+
+    let all_languages={}
+    let percentages={}
+    let total_count=0
+
+    languageDataArray.forEach((data)=>{
+        if(data){
+        Object.entries(data).forEach(([language,bytes])=>{
+            all_languages[language]=(all_languages[language]||0)+bytes
+            total_count+=bytes
+        })
+    }
+    })
+
+    Object.entries(all_languages).forEach(([language,bytes])=>{
+        percentages[language] = ((bytes/total_count)*100).toFixed(2)
+    })
+
+    return Object.entries(percentages).sort((a,b)=>b[1]-a[1])
 }
