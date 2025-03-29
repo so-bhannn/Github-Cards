@@ -1,3 +1,4 @@
+import { Tooltip as ReactTooltip } from 'react-tooltip';
 import languageColors from '../assets/githubColors'
 const Card = (userData) =>{
     const getLanguageColor=(language)=>{
@@ -67,7 +68,11 @@ const Card = (userData) =>{
                                     width:`${percentage}%`,
                                     backgroundColor:getLanguageColor(language)
                                 }}
-                                ></span>
+                                data-tooltip-id={language}
+                                data-tooltip-content={`${language} : ${percentage}%`}
+                                >
+                                <ReactTooltip id={language} place="top" type="dark" effect="solid" />
+                                </span>
                             )
                         })
                     }
