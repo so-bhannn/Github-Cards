@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import { Card } from './components'
+import {fetchContributions} from './services/githubServices'
 
 function App() {
 
@@ -8,39 +9,6 @@ function App() {
   const [userdata, setUserdata] = useState(null)
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
-
-  const fetchContributions = async(username)=>{
-    const query = `
-      query($username: String!) {
-        user(login: $username) {
-          contributionsCollection {
-            totalCommitContributions
-          }
-        }
-      }
-    `;
-
-    try{
-      const response = await fetch('https://api.github.com/graphql',{
-        method: 'POST',
-        headers: {
-          "Authorization": `Bearer ${import.meta.env.GITHUB_TOKEN}`,
-          "Content-Type": 'application/json'
-        },
-        body: JSON.stringify({
-          query,
-          variables: { username }
-        }) 
-      })
-    const data = await response.json()
-    console.log(data)
-    return data['data']['user']['contributionsCollection']['totalCommitContributions']
-    }
-    catch (error){
-      console.error("Error fetching contributions: ", error)
-      return 0
-    }
-  }
 
 
   const fetchGithubUser = async()=>{
@@ -50,16 +18,17 @@ function App() {
     setError(null)
 
     try{
-      const [userResponse,contributions] = await Promise.all([
+      const [userResponse,contributions,percentages] = await Promise.all([
         fetch(`https://api.github.com/users/${username}`),
-        fetchContributions(username)
+        fetchContributions(username),
+        analyzeLanguages(username)
       ])
       if(!userResponse.ok){
         setError('User not found')
         return 0
       }
       const data = await userResponse.json()
-      setUserdata({...data, contributions})
+      setUserdata({...data, contributions,percentages})
     }
     catch(error){
       setError(error)

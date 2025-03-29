@@ -1,6 +1,5 @@
 
 const Card = (userData) =>{
-    console.log(userData)
     return (
         <div className="relative flex flex-col justify-between w-96 h-48 md:w-3xl md:h-96 bg-amber-50 rounded-xl shadow-2xl box-border overflow-hidden">
             <div id="upper" className="flex pt-6 px-6">
