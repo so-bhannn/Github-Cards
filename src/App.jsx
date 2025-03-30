@@ -67,7 +67,7 @@ const App = () => {
   }
 
   return (
-  <div className={`w-full h-screen bg-amber-100 flex flex-col items-center justify-center p-2`}>
+  <div className={`w-full h-screen bg-amber-100 flex flex-col items-center justify-center p-2 overflow-x-hidden`}>
     <button onClick={()=>window.open('https://github.com/so-bhannn/Github-Cards','_blank')} className="absolute top-20 inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
         <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
         <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg px-4 text-sm font-medium text-black/90 bg-amber-100 backdrop-blur-3xl">
@@ -80,11 +80,11 @@ const App = () => {
       {!userdata && <p className={`text-black/60 text-2xl text-center font-funnelsans py-5 box-border`}>
         Get your personalized Github cards with a single click!
       </p>}
-      {!userdata && <form onSubmit={handleSubmit} className={`w-90 max-h-[52px] md:w-xl relative justify-self-center mt-5 gap-1`}>
+      {!userdata && <form onSubmit={handleSubmit} className={`w-[90%] max-w-xs md:w-xl relative justify-self-center mt-5`}>
         <br />
         <input
         type="text"
-        placeholder='Enter your Github username...'
+        placeholder='Enter Github username...'
         value={username}
         onChange={(e)=>setUsername(e.target.value)}
         className={`bg-amber-50 w-full py-3.5 px-4 rounded-xl text-md md:text-lg font-funnelsans outline-1 focus:outline-1.5 focus:outline-black/70 ${error ? 'outline-red-600' : 'outline-black/10'}`}
@@ -116,7 +116,7 @@ const App = () => {
       </div>
       }
       <footer className='absolute bottom-5 w-full text-center text-2xl font-monasans text-gray-800 font-semibold'>
-        Made with 💓 by <a href="#">so-bhannn</a>
+        Made with 💓 by <a href="https://github.com/so-bhannn" target='blank'>so-bhannn</a>
       </footer>
 
     </div>

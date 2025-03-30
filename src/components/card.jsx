@@ -6,20 +6,22 @@ const Card = (userData) =>{
     }
     
     const limitLength=(str)=>{
-        return str.substr(0,35) + '...'
+        if(str){
+            return str.substr(0,43) + '...'
+        }
     }
 
     return (
-        <div id='my-card' className="relative flex flex-col justify-between w-96 h-48 md:w-3xl md:h-96 bg-amber-50 rounded-xl shadow-2xl box-border overflow-hidden">
+        <div id='my-card' className="relative flex flex-col justify-between h-48 max-w-sm mx-auto   md:w-3xl md:max-w-max md:h-96 bg-amber-50 rounded-xl shadow-2xl box-border overflow-hidden">
             <div id="upper" className="flex pt-2 px-4 md:pt-6 md:px-6">
                 <div id="title" className="flex min-w-70 md:h-32 md:min-w-xl box-border items-center">
-                    <h1 className="text-2xl md:text-5xl font-monasans">{`${userData.userData.login}/`} <strong>{userData.userData.name}</strong></h1>
+                    <h1 className="text-xl md:text-5xl font-monasans">{`${userData.userData.login}/`} <strong>{userData.userData.name}</strong></h1>
                 </div>
                 <div id="avatar-container" className='shadow-2xl rounded-3xl min-w-20 h-20 md:min-w-36 md:h-36 overflow-hidden'>
                     <img src={userData.userData.avatar_url} alt="Avatar" className="w-full h-full "/>
                 </div>
             </div>
-            <div id="description" className="pl-4 md:pl-6 pb-2">
+            <div id="description" className="px-4 md:px-6 pb-2">
                 <p className="text-md md:text-2xl font-monasans text-black/60">
                     {
                         limitLength(userData.userData.bio)
