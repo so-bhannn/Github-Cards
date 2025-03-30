@@ -1,15 +1,33 @@
-import { useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react';
+import { toPng } from 'html-to-image';
 import './App.css'
 import { Card } from './components'
 import {fetchContributions,analyzeLanguages} from './services/githubServices'
 
-function App() {
+const App = () => {
+  const ref = useRef(null)
+
+  const onButtonClick = useCallback(() => {
+    if (ref.current === null) {
+      return
+    }
+
+  toPng(ref.current, { cacheBust: true, })
+      .then((dataUrl) => {
+        const link = document.createElement('a')
+        link.download = 'my-card.png'
+        link.href = dataUrl
+        link.click()
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [ref])
 
   const [username, setUsername] = useState('')
   const [userdata, setUserdata] = useState(null)
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
-
 
   const fetchGithubUser = async()=>{
     if(!username) return
@@ -53,7 +71,7 @@ function App() {
     <button onClick={()=>window.open('https://github.com/so-bhannn/Github-Cards','_blank')} className="absolute top-20 inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
         <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
         <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg px-4 text-sm font-medium text-black/90 bg-amber-100 backdrop-blur-3xl">
-          ⭐ Star on Github 
+        <i className='bx bxl-github text-4xl md:text-2xl text-gray-900 pr-1'></i>Star on Github ⭐ 
         </span>
       </button>
       {!userdata && <p className={`text-black/90 text-6xl md:text-7xl text-center font-semibold font-monasans`}>
@@ -81,14 +99,22 @@ function App() {
           {error}
         </p>}
       </form>}
-      {userdata && <div className='flex flex-col gap-20 items-center'>
-        <Card userData={userdata}/>
+      {userdata && <div className='flex flex-col gap-5 items-center'>
+        <div ref={ref}><Card userData={userdata}/></div>
+        <div className='flex flex-col md:flex-row w-full justify-evenly items-center gap-3'>
+        <button
+        onClick={onButtonClick}
+        className='w-52 bg-white py-2.5 px-5.5 rounded-lg font-funnelsans text-lg text-green-600 hover:bg-green-500 hover:cursor-pointer'>
+          Download
+        </button>
         <button
         onClick={resetPage}
         className='w-52 text-white py-2.5 px-5.5 rounded-lg font-funnelsans text-lg bg-green-600 hover:bg-green-500 hover:cursor-pointer'>
           Generate More
         </button>
-      </div>}
+        </div>
+      </div>
+      }
       <footer className='absolute bottom-5 w-full text-center text-2xl font-monasans text-gray-800 font-semibold'>
         Made with 💓 by <a href="#">so-bhannn</a>
       </footer>
