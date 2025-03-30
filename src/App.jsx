@@ -49,8 +49,14 @@ function App() {
   }
 
   return (
-  <div className={`w-full h-screen bg-amber-100 flex flex-col items-center justify-center`}>
-      {!userdata && <p className={`text-black/90 text-7xl text-center font-semibold font-monasans`}>
+  <div className={`w-full h-screen bg-amber-100 flex flex-col items-center justify-center p-2`}>
+    <button onClick={()=>window.open('https://github.com/so-bhannn/Github-Cards','_blank')} className="absolute top-20 inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
+        <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+        <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg px-4 text-sm font-medium text-black/90 bg-amber-100 backdrop-blur-3xl">
+          ⭐ Star on Github 
+        </span>
+      </button>
+      {!userdata && <p className={`text-black/90 text-6xl md:text-7xl text-center font-semibold font-monasans`}>
         Github Cards
       </p>}
       {!userdata && <p className={`text-black/60 text-2xl text-center font-funnelsans py-5 box-border`}>
