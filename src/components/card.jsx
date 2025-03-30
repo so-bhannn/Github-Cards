@@ -5,10 +5,14 @@ const Card = (userData) =>{
         return languageColors[language].color || "#ffffff"
     }
     
+    const limitLength=(str)=>{
+        return str.substr(0,35) + '...'
+    }
+
     return (
         <div id='my-card' className="relative flex flex-col justify-between w-96 h-48 md:w-3xl md:h-96 bg-amber-50 rounded-xl shadow-2xl box-border overflow-hidden">
             <div id="upper" className="flex pt-2 px-4 md:pt-6 md:px-6">
-                <div id="title" className="flex md:h-32 md:min-w-xl box-border items-center">
+                <div id="title" className="flex min-w-70 md:h-32 md:min-w-xl box-border items-center">
                     <h1 className="text-2xl md:text-5xl font-monasans">{`${userData.userData.login}/`} <strong>{userData.userData.name}</strong></h1>
                 </div>
                 <div id="avatar-container" className='shadow-2xl rounded-3xl min-w-20 h-20 md:min-w-36 md:h-36 overflow-hidden'>
@@ -16,8 +20,10 @@ const Card = (userData) =>{
                 </div>
             </div>
             <div id="description" className="pl-4 md:pl-6 pb-2">
-                <p className="text-lg md:text-2xl font-monasans text-black/60">
-                    {userData.userData.bio}
+                <p className="text-md md:text-2xl font-monasans text-black/60">
+                    {
+                        limitLength(userData.userData.bio)
+                }
                 </p>
             </div>
             <div id="stats" className="flex justify-evenly mb-7">
@@ -28,7 +34,7 @@ const Card = (userData) =>{
                             {userData.userData.followers}
                         </span>
                     </div>
-                    <p className='text-md md:text-xl text-black/70'>
+                    <p className='text-sm md:text-xl text-black/70'>
                         Followers
                     </p>
                 </div>
@@ -39,7 +45,7 @@ const Card = (userData) =>{
                             {userData.userData.public_repos}
                         </span>
                     </div>
-                    <p className='text-md md:text-xl text-black/70'>
+                    <p className='text-sm md:text-xl text-black/70'>
                         Repositories
                     </p>
                 </div>
@@ -50,8 +56,8 @@ const Card = (userData) =>{
                             {userData.userData.contributions}
                         </span>
                     </div>
-                    <p className='text-md md:text-xl text-black/70'>
-                        Contributions
+                    <p className='text-sm md:text-xl text-black/70'>
+                        Contributions last year
                     </p>
                 </div>
             </div>
