@@ -1,12 +1,24 @@
-# React + Vite
+# GitHub Cards Generator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+📊 A sleek web application that generates beautiful, shareable GitHub profile cards. Simply enter a username to create a personalized card showcasing your GitHub stats, repositories, followers, and most-used programming languages.
 
-Currently, two official plugins are available:
+## Features
+- 🔎 Instant profile generation with a single GitHub username
+- 📊 Displays key GitHub metrics (followers, repositories, yearly contributions)
+- 🎨 Visual representation of most-used programming languages with accurate GitHub colors
+- 📱 Fully responsive design that works on mobile and desktop
+- 💾 One-click download functionality to save and share your card
+- ⚡ Fast performance with optimized API calls
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
+- React + Vite
+- Tailwind CSS for styling
+- GitHub REST and GraphQL APIs
+- html-to-image for card export functionality
 
-## Expanding the ESLint configuration
+## Why GitHub Cards?
+Whether you're looking to showcase your GitHub profile on social media, add to your portfolio, or just have a neat visual representation of your GitHub activity, GitHub Cards Generator provides an elegant solution in seconds.
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+**Try it now!** Enter your GitHub username and see your personalized GitHub profile card instantly.
